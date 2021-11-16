@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todowoo/cubits/app_cubit.dart';
+import 'package:todowoo/cubits/auth/auth_cubit.dart';
 import 'package:todowoo/screens/auth_screen.dart';
 import 'package:todowoo/screens/splash_screen.dart';
 import 'package:todowoo/screens/todo_screen.dart';
@@ -17,7 +18,10 @@ class MainScreen extends StatelessWidget {
           return const ToDoScreen();
         }
         if (state is AppUnauthenticated) {
-          return const AuthScreen();
+          return BlocProvider(
+            create: (context) => AuthCubit(),
+            child: const AuthScreen(),
+          );
         }
         return const SplashScreen();
       },

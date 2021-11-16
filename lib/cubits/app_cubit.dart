@@ -14,7 +14,7 @@ class AppCubit extends Cubit<AppState> {
   Future startApp() async {
     emit(AppUninitialized());
     await _initializeAppSetting();
-    await _renewJWT();
+    renewJWT();
   }
 
   Future _initializeAppSetting() async {
@@ -22,7 +22,12 @@ class AppCubit extends Cubit<AppState> {
     await Future.delayed(const Duration(seconds: 2));
   }
 
-  Future _renewJWT() async {
+  unAuthenticate() {
+    userRepository.unAuthenticate();
+    renewJWT();
+  }
+
+  renewJWT() {
     if (userRepository.hasJWT) {
       emit(AppAuthenticated());
     } else {
