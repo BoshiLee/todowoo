@@ -20,6 +20,18 @@ class ToDoScreen extends StatelessWidget {
           ),
         ],
       ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          children: const [
+            Text('buy burger'),
+            SizedBox(
+              height: 10,
+            ),
+            Text('do homework'),
+          ],
+        ),
+      ),
     );
   }
 }
