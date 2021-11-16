@@ -33,6 +33,13 @@ class UserRepository {
     return Auth.fromJson(response).token;
   }
 
+  Future<String?> register({required RegisterModel model}) async {
+    if (!validateRegisterModel(model)) return '';
+    final response = await AuthProvider.register(model);
+    if (response == null) throw const FetchDataException(message: '伺服器無回應');
+    return Auth.fromJson(response).token;
+  }
+
   Future<void> unAuthenticate() async => AuthProvider.logout();
 
   bool validateRegisterModel(RegisterModel registerModel) {

@@ -16,10 +16,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       emit(AuthLoading());
       final String? jwt = await _repository.authenticate(model: model);
-      if (jwt != null) {
-        writeToken(jwt);
-        emit(AuthSuccess());
-      }
+      if (jwt != null) writeToken(jwt);
     } on AppException catch (exception) {
       _handleGenericError(exception);
     } catch (e) {
@@ -31,6 +28,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   void writeToken(String jwt) {
     _repository.jwt = jwt;
+    emit(AuthSuccess());
   }
 
   AuthState? _handleGenericError(AppException exception) {

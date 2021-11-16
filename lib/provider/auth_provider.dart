@@ -15,8 +15,10 @@ class AuthProvider {
   static void logout() => UserRepository.shared.deleteJWT();
 
   static Future<dynamic> register(RegisterModel model) async {
-    final response =
-        await _helper.post('$baseRoute/register', data: model.toJson());
+    final response = await _helper.post(
+      '$baseRoute/signup',
+      data: model.toJson(),
+    );
     return response;
   }
 }
