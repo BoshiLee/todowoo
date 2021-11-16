@@ -15,9 +15,11 @@ class AuthCubit extends Cubit<AuthState> {
   Future login() async {
     try {
       emit(AuthLoading());
-      // jwt = await _repository.authenticate(model: model);
-      //writeToken(jwt);
-      emit(AuthSuccess());
+      final String? jwt = await _repository.authenticate(model: model);
+      if (jwt != null) {
+        writeToken(jwt);
+        emit(AuthSuccess());
+      }
     } on AppException catch (exception) {
       _handleGenericError(exception);
     } catch (e) {

@@ -36,16 +36,16 @@ class UserRepository {
   Future<void> unAuthenticate() async => AuthProvider.logout();
 
   bool validateRegisterModel(RegisterModel registerModel) {
-    if (registerModel.email == null) {
+    if (registerModel.username == null) {
       throw const ValidateException(message: '請輸入 Email');
     }
-    if (registerModel.email!.isEmpty) {
+    if (registerModel.username!.isEmpty) {
       throw const ValidateException(message: '請輸入 Email');
     }
-    if (registerModel.email == null) {
+    if (registerModel.username == null) {
       throw const ValidateException(message: '請輸入密碼');
     }
-    if (registerModel.email!.isEmpty) {
+    if (registerModel.username!.isEmpty) {
       throw const ValidateException(message: '請輸入密碼');
     }
     return true;

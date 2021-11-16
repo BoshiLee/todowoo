@@ -5,7 +5,7 @@ import 'package:todowoo/repository/user_repository.dart';
 class AuthProvider {
   static final ApiBaseHelper _helper = ApiBaseHelper();
 
-  static const String baseRoute = '/auth';
+  static const String baseRoute = '/api';
 
   static Future<dynamic> login(RegisterModel model) async => _helper.post(
         '$baseRoute/login',

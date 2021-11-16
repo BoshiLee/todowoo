@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todowoo/cubits/app_cubit.dart';
 import 'package:todowoo/cubits/auth/auth_cubit.dart';
+import 'package:todowoo/screens/gathering_text_form.dart';
 import 'package:todowoo/utils/bs_navigator.dart';
 
 class AuthScreen extends StatelessWidget {
@@ -35,17 +36,36 @@ class AuthScreen extends StatelessWidget {
         child: BlocBuilder<AuthCubit, AuthState>(
           builder: (context, state) {
             return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  OutlinedButton(
-                    child: const Text(
-                      'Login',
-                      style: TextStyle(fontSize: 15),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AuthTextForm(
+                      title: 'Email',
+                      hints: 'Please input Email',
+                      enable: state is! AuthLoading,
+                      onChanged: (email) =>
+                          context.read<AuthCubit>().model.username = email,
                     ),
-                    onPressed: context.read<AuthCubit>().login,
-                  ),
-                ],
+                    const SizedBox(height: 20),
+                    AuthTextForm(
+                      title: 'Password',
+                      hints: 'Please input password',
+                      enable: state is! AuthLoading,
+                      onChanged: (password) =>
+                          context.read<AuthCubit>().model.password = password,
+                    ),
+                    const SizedBox(height: 20),
+                    OutlinedButton(
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      onPressed: context.read<AuthCubit>().login,
+                    ),
+                  ],
+                ),
               ),
             );
           },
